@@ -22,6 +22,23 @@ class ViewController: UIViewController
         // Do any additional setup after loading the view, typically from a nib.
         tipLabel.text = "$0.00"
         totalLabel.text = "$0.00"
+        super.viewDidLoad()
+        let topColor = UIColor(red: (135/255.0), green: (135/255.0), blue: (135/255.0), alpha: 1)
+        let bottomColor = UIColor(red: (135/255.0), green: (135/255.0), blue: (135/255.0), alpha:1)
+        let gradientColors: [CGColor] = [topColor.CGColor, bottomColor.CGColor]
+        let gradientLocations: [Float] = [0.0, 1.0]
+        
+        let gradientLayer: CAGradientLayer = CAGradientLayer()
+        gradientLayer.colors = gradientColors
+        gradientLayer.locations = gradientLocations
+        
+        gradientLayer.frame = self.view.bounds
+        self.view.layer.insertSublayer(gradientLayer, atIndex: 0)
+        
+        self.billField.alpha = 0
+        self.totalLabel.alpha = 0
+        self.tipLabel.alpha = 0
+        self.historyLabel.alpha = 0
         
     }
 
@@ -50,6 +67,16 @@ class ViewController: UIViewController
         //Allows one to see when they last tipped
         
         
+        
+    }
+    override func viewDidAppear(animated: Bool)
+    {
+        super.viewDidAppear(animated)
+        UIView.animateWithDuration(10.0, animations: { () -> Void in
+            self.totalLabel.alpha = 10.0
+            self.tipLabel.alpha = 10.0
+            self.historyLabel.alpha = 10.0
+            self.billField.alpha = 10.0})
     }
 
     @IBAction func onTap(sender: AnyObject) {
